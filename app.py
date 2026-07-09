@@ -7,7 +7,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from composio import Composio
 import asyncio
-
+import requests
 checkpointer = InMemorySaver()
 config = {"configurable": {"thread_id": "1"}}
 model = ChatNVIDIA(
@@ -20,12 +20,12 @@ model = ChatNVIDIA(
 composio_key = os.getenv("COMPOSIO_API_KEY")
 composio = Composio(api_key=composio_key)
 server = composio.mcp.create(
-    name="my-gmail-server",             # a name you choose
+    name="my-tavily-server",             # a name you choose
     toolkits=[{
-        "toolkit": "Gmail",             # which toolkit to install
-        "auth_config": "ac_Rm4UHZ7OxFsg" # your Tavily auth ID from Composio dashboard
+        "toolkit":"Gmail",             # which toolkit to install
+        "auth_config":"ac_Rm4UHZ7OxFsg" # your Tavily auth ID from Composio dashboard
     }],
-    )
+)
 
 instance = composio.mcp.generate(
     user_id="pg-test-99fcc94c-9ce9-44d5-ad7a-75cee054d67f",
